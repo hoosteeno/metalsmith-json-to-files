@@ -27,19 +27,23 @@ describe('metalsmith-json-to-files basic', function () {
         });
     });
 
-    it('should do standard file copying', function (done) {
+    ['yaml', 'json'].forEach(function (filetype) {
+        it('should do standard file copying from ' + filetype + 'files', function (done) {
 
-        new Metalsmith(test_path)
-        .use(json_to_files({
-            source_path: '../json/'
-        }))
-        .build(function (err) {
-            if (err) { return done(err); }
+            new Metalsmith(test_path)
+            .source(filetype + '_src')
+            .use(json_to_files({
+                source_path: '../' + filetype + '/'
+            }))
+            .build(function (err) {
+                if (err) { return done(err); }
 
-            equal(test_path + '/expected', test_path + '/build');
-            done();
+                equal(test_path + '/expected', test_path + '/build');
+                done();
+            });
         });
     });
+
 
 });
 
@@ -48,17 +52,20 @@ describe('metalsmith-json-to-files file generation', function () {
 
     var test_path = 'test/fixtures/file_generation';
 
-    it('should do basic file generation', function (done) {
+    ['yaml', 'json'].forEach(function (filetype) {
+        it('should do basic file generation from ' + filetype + 'files', function (done) {
 
-        new Metalsmith(test_path)
-        .use(json_to_files({
-            source_path: '../json/'
-        }))
-        .build(function (err) {
-            if (err) { return done(err); }
+            new Metalsmith(test_path)
+            .source(filetype + '_src')
+            .use(json_to_files({
+                source_path: '../' + filetype + '/'
+            }))
+            .build(function (err) {
+                if (err) { return done(err); }
 
-            equal(test_path + '/expected', test_path + '/build');
-            done();
+                equal(test_path + '/expected', test_path + '/build');
+                done();
+            });
         });
     });
 });
@@ -68,17 +75,20 @@ describe('metalsmith-json-to-files file generation with permalinks', function ()
 
     var test_path = 'test/fixtures/file_generation_permalinks';
 
-    it('should do basic file generation', function (done) {
+    ['yaml', 'json'].forEach(function (filetype) {
+        it('should do basic file generation from ' + filetype + 'files', function (done) {
 
-        new Metalsmith(test_path)
-        .use(json_to_files({
-            source_path: '../json/'
-        }))
-        .build(function (err) {
-            if (err) { return done(err); }
+            new Metalsmith(test_path)
+            .source(filetype + '_src')
+            .use(json_to_files({
+                source_path: '../' + filetype + '/'
+            }))
+            .build(function (err) {
+                if (err) { return done(err); }
 
-            equal(test_path + '/expected', test_path + '/build');
-            done();
+                equal(test_path + '/expected', test_path + '/build');
+                done();
+            });
         });
     });
 });
@@ -88,21 +98,24 @@ describe('metalsmith-json-to-files file generation with templates', function () 
 
     var test_path = 'test/fixtures/hbs_templates';
 
-    it('should do basic file generation', function (done) {
+    ['yaml', 'json'].forEach(function (filetype) {
+        it('should do basic file generation from ' + filetype + 'files', function (done) {
 
-        new Metalsmith(test_path)
-        .use(json_to_files({
-            source_path: '../json/'
-        }))
-        .use(templates({
-            engine   : 'handlebars'
-          , directory: 'templates'
-        }))
-        .build(function (err) {
-            if (err) { return done(err); }
+            new Metalsmith(test_path)
+            .source(filetype + '_src')
+            .use(json_to_files({
+                source_path: '../' + filetype + '/'
+            }))
+            .use(templates({
+                engine   : 'handlebars'
+              , directory: 'templates'
+            }))
+            .build(function (err) {
+                if (err) { return done(err); }
 
-            equal(test_path + '/expected', test_path + '/build');
-            done();
+                equal(test_path + '/expected', test_path + '/build');
+                done();
+            });
         });
     });
 });
